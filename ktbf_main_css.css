@@ -1,0 +1,943 @@
+/*
+Theme Name: KTBF Centennial
+Description: Custom WordPress theme for King of Thailand Birthplace Foundation's 2027 Centennial Celebration
+Version: 1.0.0
+Author: KTBF Development Team
+Text Domain: ktbf
+
+This theme is built with security, accessibility, and user experience at its core.
+It follows WCAG 2.1 guidelines and modern web development best practices.
+*/
+
+/* ====================================
+   CSS CUSTOM PROPERTIES (CSS Variables)
+   These will be dynamically updated via WordPress Customizer
+   ==================================== */
+
+:root {
+  /* Color Palette - Will be customizable via WordPress admin */
+  --primary-color: #0066cc;
+  --secondary-color: #ffcc00; /* Thai Royal Gold */
+  --accent-color: #cc0000;     /* Thai Royal Red */
+  --text-color: #333333;
+  --text-light: #666666;
+  --background-color: #ffffff;
+  --background-light: #f8f9fa;
+  --border-color: #e9ecef;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --error-color: #dc3545;
+  
+  /* Typography */
+  --font-family-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-heading: Georgia, 'Times New Roman', serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  --spacing-xxl: 4rem;
+  
+  /* Borders and Shadows */
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --box-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.5s ease-in-out;
+}
+
+/* ====================================
+   RESET AND BASE STYLES
+   Establishes consistent cross-browser rendering
+   ==================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size-base);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--text-color);
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Ensure images are responsive by default */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Improve readability for links */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover, a:focus {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
+/* Focus styles for accessibility */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* ====================================
+   TYPOGRAPHY
+   Establishes readable and hierarchical text styles
+   ==================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 0;
+  margin-bottom: var(--spacing-md);
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.125rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--text-light);
+}
+
+/* ====================================
+   ACCESSIBILITY FEATURES
+   Ensures WCAG compliance and screen reader support
+   ==================================== */
+
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  z-index: 999999;
+  padding: 8px 16px;
+  background: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+.screen-reader-text {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --primary-color: #0000ff;
+    --text-color: #000000;
+    --background-color: #ffffff;
+    --border-color: #000000;
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ====================================
+   LAYOUT COMPONENTS
+   Main structural elements of the website
+   ==================================== */
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+.container-fluid {
+  width: 100%;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+/* ====================================
+   HEADER AND NAVIGATION
+   Top navigation and branding elements
+   ==================================== */
+
+.site-header {
+  background: var(--background-color);
+  box-shadow: var(--box-shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 3px solid var(--secondary-color);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md) 0;
+}
+
+.site-logo {
+  max-height: 80px;
+  width: auto;
+}
+
+.site-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.site-title:hover {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+/* Primary Navigation */
+.primary-navigation {
+  display: flex;
+  align-items: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--spacing-lg);
+}
+
+.nav-menu a {
+  display: block;
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--text-color);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+}
+
+.nav-menu a:hover,
+.nav-menu a:focus {
+  color: var(--primary-color);
+  border-bottom-color: var(--secondary-color);
+  text-decoration: none;
+}
+
+.nav-menu .current-menu-item > a {
+  color: var(--primary-color);
+  border-bottom-color: var(--secondary-color);
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+}
+
+/* ====================================
+   HERO SECTION
+   Main banner area for homepage and key pages
+   ==================================== */
+
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: var(--background-color);
+  padding: var(--spacing-xxl) 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-lg);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: var(--spacing-xl);
+  opacity: 0.9;
+}
+
+.centennial-badge {
+  display: inline-block;
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing-lg);
+  box-shadow: var(--box-shadow);
+}
+
+/* ====================================
+   BUTTONS AND FORM ELEMENTS
+   Interactive elements with consistent styling
+   ==================================== */
+
+.btn {
+  display: inline-block;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  min-width: 120px;
+}
+
+.btn-primary {
+  background: var(--primary-color);
+  color: var(--background-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--accent-color);
+  color: var(--background-color);
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background: var(--accent-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover,
+.btn-outline:focus {
+  background: var(--primary-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+.btn-lg {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  font-size: 1.125rem;
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.form-control {
+  width: 100%;
+  padding: var(--spacing-md);
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--background-color);
+  transition: border-color var(--transition-fast);
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-control:invalid {
+  border-color: var(--error-color);
+}
+
+/* ====================================
+   CONTENT SECTIONS
+   Main content areas and card components
+   ==================================== */
+
+.main-content {
+  padding: var(--spacing-xxl) 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--secondary-color);
+  margin: var(--spacing-md) auto 0;
+}
+
+.card {
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+.card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: var(--spacing-lg);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+}
+
+.card-excerpt {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.card-meta {
+  font-size: 0.875rem;
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+/* ====================================
+   TIMELINE COMPONENT
+   For displaying legacy and historical events
+   ==================================== */
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  width: 3px;
+  background: var(--secondary-color);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -1.5px;
+}
+
+.timeline-item {
+  padding: var(--spacing-lg) var(--spacing-xl);
+  position: relative;
+  background: inherit;
+  width: 50%;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background: var(--background-color);
+  border: 3px solid var(--secondary-color);
+  top: 24px;
+  border-radius: 50%;
+}
+
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+
+.timeline-item:nth-child(even)::after {
+  left: -10px;
+}
+
+.timeline-content {
+  padding: var(--spacing-lg);
+  background: var(--background-color);
+  position: relative;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.timeline-date {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ====================================
+   EVENT PAGES
+   Styles specific to event listings and details
+   ==================================== */
+
+.event-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.event-card {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+
+.event-card:hover {
+  border-color: var(--secondary-color);
+}
+
+.event-date {
+  background: var(--primary-color);
+  color: var(--background-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  text-align: center;
+}
+
+.event-details {
+  padding: var(--spacing-lg);
+}
+
+.event-title {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.event-location {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+}
+
+.event-location::before {
+  content: '📍 ';
+  margin-right: var(--spacing-xs);
+}
+
+/* ====================================
+   DONATION SECTION
+   Secure donation forms and fund information
+   ==================================== */
+
+.donation-section {
+  background: var(--background-light);
+  padding: var(--spacing-xxl) 0;
+  border-top: 3px solid var(--secondary-color);
+}
+
+.fund-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.fund-option {
+  background: var(--background-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: 2px solid transparent;
+}
+
+.fund-option:hover,
+.fund-option.selected {
+  border-color: var(--secondary-color);
+  transform: translateY(-3px);
+}
+
+.fund-option h3 {
+  color: var(--primary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.donation-amount-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  justify-content: center;
+}
+
+.amount-btn {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 2px solid var(--border-color);
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.amount-btn:hover,
+.amount-btn.selected {
+  border-color: var(--secondary-color);
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+
+/* ====================================
+   FOOTER
+   Site footer with contact info and links
+   ==================================== */
+
+.site-footer {
+  background: var(--text-color);
+  color: var(--background-color);
+  padding: var(--spacing-xxl) 0 var(--spacing-lg);
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.footer-widget h4 {
+  color: var(--secondary-color);
+  margin-bottom: var(--spacing-md);
+}
+
+.footer-widget a {
+  color: var(--background-color);
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+
+.footer-widget a:hover {
+  opacity: 1;
+  color: var(--secondary-color);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: var(--spacing-lg);
+  text-align: center;
+  opacity: 0.7;
+}
+
+/* ====================================
+   RESPONSIVE DESIGN
+   Mobile-first approach for all screen sizes
+   ==================================== */
+
+/* Tablet styles */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.25rem;
+  }
+  
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--background-color);
+    box-shadow: var(--box-shadow);
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .nav-menu.active {
+    display: flex;
+  }
+  
+  .nav-menu a {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .timeline::after {
+    left: 20px;
+  }
+  
+  .timeline-item {
+    width: 100%;
+    padding-left: 60px;
+    padding-right: var(--spacing-md);
+  }
+  
+  .timeline-item::after {
+    left: 10px;
+  }
+  
+  .timeline-item:nth-child(even) {
+    left: 0;
+  }
+  
+  .timeline-item:nth-child(even)::after {
+    left: 10px;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  :root {
+    --spacing-xxl: 2rem;
+    --spacing-xl: 1.5rem;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.125rem;
+  }
+  
+  .header-content {
+    flex-wrap: wrap;
+  }
+  
+  .site-title {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+  
+  .donation-amount-buttons {
+    flex-direction: column;
+  }
+  
+  .amount-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ====================================
+   UTILITY CLASSES
+   Helper classes for common styling needs
+   ==================================== */
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+.p-0 { padding: 0; }
+.p-1 { padding: var(--spacing-xs); }
+.p-2 { padding: var(--spacing-sm); }
+.p-3 { padding: var(--spacing-md); }
+.p-4 { padding: var(--spacing-lg); }
+.p-5 { padding: var(--spacing-xl); }
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* ====================================
+   PRINT STYLES
+   Optimized styles for printing
+   ==================================== */
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: #000;
+    background: #fff;
+  }
+  
+  .site-header,
+  .site-footer,
+  .mobile-menu-toggle,
+  .btn,
+  nav {
+    display: none;
+  }
+  
+  .main-content {
+    padding: 0;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+  
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 10pt;
+  }
+}
