@@ -65,9 +65,6 @@ function ktbf_enqueue_assets() {
     // Enqueue main stylesheet
     wp_enqueue_style('ktbf-style', get_stylesheet_uri(), array(), '1.0.0');
     
-    // Enqueue custom CSS for responsive design
-    wp_enqueue_style('ktbf-responsive', get_template_directory_uri() . '/assets/css/responsive.css', array('ktbf-style'), '1.0.0');
-    
     // Enqueue Bootstrap for responsive grid system
     wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', array(), '5.3.0');
     
@@ -124,6 +121,24 @@ function ktbf_register_post_types() {
         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'menu_icon' => 'dashicons-welcome-learn-more',
         'show_in_rest' => true,
+    ));
+
+    // Registration post type
+    register_post_type('ktbf_registration', array(
+        'labels' => array(
+            'name' => 'Registrations',
+            'singular_name' => 'Registration',
+        ),
+        'public' => false,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'capability_type' => 'post',
+        'capabilities' => array(
+            'create_posts' => false, // Users can't manually create
+        ),
+        'map_meta_cap' => true,
+        'supports' => array('title', 'custom-fields'),
+        'menu_icon' => 'dashicons-clipboard',
     ));
     
     // Legacy Timeline Post Type

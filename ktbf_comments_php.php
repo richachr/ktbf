@@ -55,6 +55,7 @@ if (post_password_required()) {
     <?php endif; ?>
 
     <?php
+    $commenter = wp_get_current_commenter();
     comment_form(array(
         'title_reply_before' => '<h3 id="reply-title" class="comment-reply-title">',
         'title_reply_after'  => '</h3>',
