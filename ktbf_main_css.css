@@ -1,9 +1,17 @@
 /*
 Theme Name: KTBF Centennial
-Description: Custom WordPress theme for King of Thailand Birthplace Foundation's 2027 Centennial Celebration
+Theme URI: https://www.thailink.com/ktbf/
+Description: Custom WordPress theme for King of Thailand Birthplace Foundation's 2027 Centennial Celebration. Built with security, accessibility, and user experience at its core. Features responsive design, WCAG 2.1 AA compliance, and comprehensive event management.
 Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.0
 Author: KTBF Development Team
+Author URI: https://www.thailink.com/ktbf/
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: ktbf
+Tags: accessibility-ready, custom-colors, custom-menu, featured-images, flexible-header, responsive-design, translation-ready, two-columns
 
 This theme is built with security, accessibility, and user experience at its core.
 It follows WCAG 2.1 guidelines and modern web development best practices.
