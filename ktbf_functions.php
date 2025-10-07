@@ -63,7 +63,7 @@ add_action('after_setup_theme', 'ktbf_theme_support');
  */
 function ktbf_enqueue_assets() {
     // Enqueue main stylesheet
-    wp_enqueue_style('ktbf-style', get_template_directory_uri() . '/assets/css/styles.css');
+    wp_enqueue_style('style', get_template_directory_uri() . '/assets/css/styles.css');
     
     // Enqueue Bootstrap for responsive grid system
     wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', array(), '5.3.0');
@@ -72,13 +72,13 @@ function ktbf_enqueue_assets() {
     wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css', array(), '6.4.0');
     
     // Enqueue main JavaScript
-    wp_enqueue_script('ktbf-main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
+    wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/main.js', array('jquery'), '1.0.0', true);
     
     // Enqueue Bootstrap JavaScript
     wp_enqueue_script('bootstrap-js', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js', array(), '5.3.0', true);
     
     // Localize script for AJAX calls
-    wp_localize_script('ktbf-main', 'ktbf_ajax', array(
+    wp_localize_script('main', 'ktbf_ajax', array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('ktbf_nonce'),
     ));
