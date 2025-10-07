@@ -426,6 +426,11 @@ function ktbf_process_registration() {
     
     if ($result) {
         wp_send_json_success('Registration successful! You will receive a confirmation email shortly.');
+        $to = $email;
+        $subject = 'Registration Confirmation - KTBF 2027 Centennial';
+        $message = "Dear $first_name $last_name,\n\nThank you for registering...";
+        $headers = array('Content-Type: text/html; charset=UTF-8');
+        wp_mail($to, $subject, $message, $headers);
     } else {
         wp_send_json_error('Registration failed. Please try again.');
     }
