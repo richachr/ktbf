@@ -63,7 +63,7 @@ add_action('after_setup_theme', 'ktbf_theme_support');
  */
 function ktbf_enqueue_assets() {
     // Enqueue main stylesheet
-    wp_enqueue_style('ktbf-style', get_stylesheet_uri(), array(), '1.0.0');
+    wp_enqueue_style('ktbf-style', get_template_directory_uri() . '/assets/css/styles.css');
     
     // Enqueue Bootstrap for responsive grid system
     wp_enqueue_style('bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css', array(), '5.3.0');
